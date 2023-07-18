@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tamagotchi</title>
+  <style>
+    /* Estilos gerais da página */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    /* Estilos do Tamagotchi */
+    .tamagotchi {
+      font-family: Consolas, monospace;
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+
+    /* Estilos do HUD */
+    .hud {
+      font-family: "Arial Nova", sans-serif;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* Estilos dos botões */
+    .button {
+      font-size: 20px;
+      margin: 5px;
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
+
+    /* Estilos para a caixa de opções de animais */
+    .animal-options {
+      margin-top: 20px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      display: inline-block;
+    }
+
+    /* Estilos para o texto "Escolha o seu animal" */
+    .animal-text {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Estilos para o mini game "jogo da velha" */
+    .game-board {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .game-cell {
+      width: 90px;
+      height: 90px;
+      font-size: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ccc;
+      cursor: pointer;
+    }
+
+    /* Estilos para as barras de progresso */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .status-label {
+      width: 100px;
+      font-weight: bold;
+    }
+
+    .status-bar-inner {
+      height: 10px; /* Altura reduzida para 10px */
+      background-color: #e2e2e2; /* Cor de fundo pastel */
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      width: 100px; /* Largura inicial de 100px */
+    }
+
+    /* Estilize as barras de progresso de acordo com o valor de cada necessidade */
+    #felicidadeBar {
+      background-color: #90ee90; /* Cor de fundo pastel para felicidade */
+    }
+
+    #fomeBar {
+      background-color: #ff8c94; /* Cor de fundo pastel para fome */
+    }
+
+    #energiaBar {
+      background-color: #add8e6; /* Cor de fundo pastel para energia */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><span id="nomePersonagem" onclick="mudarNome()">Tamagotchi</span></h1>
+    <div class="tamagotchi" id="tamagotchi">🐶</div>
+    <div class="hud" id="hud">
+      <div class="status-bar">
+        <div class="status-label">Felicidade:</div>
+        <div class="status-bar-inner" id="felicidadeBar"></div>
+      </div>
+      <div class="status-bar">
+        <div class="status-label">Fome:</div>
+        <div class="status-bar-inner" id="fomeBar"></div>
+      </div>
+      <div class="status-bar">
+        <div class="status-label">Energia:</div>
+        <div class="status-bar-inner" id="energiaBar"></div>
+      </div>
+    </div>
+    <button class="button" onclick="alimentar()">🍔 Alimentar</button>
+    <button class="button" onclick="brincar()">🎾 Brincar</button>
+    <button class="button" onclick="descansar()">💤 Descansar</button>
+    <br> <!-- Quebra de linha para separar as opções de animal da HUD -->
+    <div class="animal-options">
+      <div class="animal-text">Escolha o seu animal:</div>
+      <button class="button" onclick="trocarAnimal('🐶')">🐶</button>
+      <button class="button" onclick="trocarAnimal('🐱')">🐱</button>
+      <button class="button" onclick="trocarAnimal('🐰')">🐰</button>
+      <button class="button" onclick="trocarAnimal('🦊')">🦊</button>
+    </div>
+  </div>
+
+  <script>
+    // Restante do seu código JavaScript permanece inalterado...
+    // (Copie e cole o restante do seu código aqui)
+
+    // Atualizar a exibição do Tamagotchi ao carregar a página
+    updateTamagotchi();
+  </script>
+</body>
+</html>

@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Tamagotchi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     /* Estilos gerais da página */
     body {
@@ -69,6 +70,23 @@
       justify-content: center;
       border: 2px solid #ccc;
       cursor: pointer;
+    }
+
+    /* Estilos para telas menores, como smartphones */
+    @media (max-width: 600px) {
+      .tamagotchi {
+        font-size: 40px;
+      }
+
+      .hud {
+        font-size: 18px;
+      }
+
+      /* Ajustes de tamanho e posicionamento para dispositivos móveis */
+      .button {
+        font-size: 16px;
+        padding: 8px 12px;
+      }
     }
   </style>
 </head>

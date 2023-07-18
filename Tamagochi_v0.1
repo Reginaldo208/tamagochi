@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tamagotchi</title>
+  <style>
+    /* Estilos gerais da página */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    /* Estilos do Tamagotchi */
+    .tamagotchi {
+      font-family: Consolas, monospace;
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+
+    /* Estilos do HUD */
+    .hud {
+      font-family: "Arial Nova", sans-serif;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* Estilos dos botões */
+    .button {
+      font-size: 20px;
+      margin: 5px;
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
+
+    /* Estilos para a caixa de opções de animais */
+    .animal-options {
+      margin-top: 20px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      display: inline-block;
+    }
+
+    /* Estilos para o texto "Escolha o seu animal" */
+    .animal-text {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Estilos para o mini game "jogo da velha" */
+    .game-board {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .game-cell {
+      width: 90px;
+      height: 90px;
+      font-size: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ccc;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><span id="nomePersonagem" onclick="mudarNome()">Tamagotchi</span></h1>
+    <div class="tamagotchi" id="tamagotchi">🐶</div>
+    <div class="hud" id="hud">😄 Felicidade: 100% | 😋 Fome: 100% | 💤 Energia: 100%</div>
+    <button class="button" onclick="alimentar()">🍔 Alimentar</button>
+    <button class="button" onclick="brincar()">🎾 Brincar</button>
+    <button class="button" onclick="descansar()">💤 Descansar</button>
+    <br> <!-- Quebra de linha para separar as opções de animal da HUD -->
+    <div class="animal-options">
+      <div class="animal-text">Escolha o seu animal:</div>
+      <button class="button" onclick="trocarAnimal('🐶')">🐶</button>
+      <button class="button" onclick="trocarAnimal('🐱')">🐱</button>
+      <button class="button" onclick="trocarAnimal('🐰')">🐰</button>
+      <button class="button" onclick="trocarAnimal('🦊')">🦊</button>
+    </div>
+  </div>
+
+  <script>
+    // Variáveis para controlar o estado do Tamagotchi
+    let felicidade = 100;
+    let fome = 100;
+    let energia = 100;
+    let animalEmoji = '🐶';
+    let nomePersonagem = 'Tamagotchi';
+
+    // Função para atualizar a exibição do Tamagotchi
+    function updateTamagotchi() {
+      const tamagotchiElement = document.getElementById('tamagotchi');
+      tamagotchiElement.textContent = animalEmoji;
+      tamagotchiElement.style.opacity = felicidade / 100;
+
+      // Atualizar o HUD com as informações de fome, felicidade e energia usando emojis
+      const hudElement = document.getElementById('hud');
+      const felicidadeEmoji = getEmojiByFelicidade(felicidade);
+      const fomeEmoji = getEmojiByFome(fome);
+      const energiaEmoji = getEmojiByEnergia(energia);
+      hudElement.innerHTML = `${felicidadeEmoji} Felicidade: ${felicidade}% | ${fomeEmoji} Fome: ${fome}% | ${energiaEmoji} Energia: ${energia}%`;
+      
+      // Atualizar o nome do personagem no título
+      const nomePersonagemElement = document.getElementById('nomePersonagem');
+      nomePersonagemElement.textContent = nomePersonagem;
+    }
+
+    // Função para obter o emoji de felicidade com base no valor
+    function getEmojiByFelicidade(felicidade) {
+      if (felicidade >= 80) {
+        return '😄';
+      } else if (felicidade >= 50) {
+        return '😊';
+      } else if (felicidade >= 20) {
+        return '😐';
+      } else {
+        return '😢';
+      }
+    }
+
+    // Função para obter o emoji de fome com base no valor
+    function getEmojiByFome(fome) {
+      if (fome >= 80) {
+        return '😋';
+      } else if (fome >= 50) {
+        return '😐';
+      } else if (fome >= 20) {
+        return '😟';
+      } else {
+        return '😫';
+      }
+    }
+
+    // Função para obter o emoji de energia com base no valor
+    function getEmojiByEnergia(energia) {
+      if (energia >= 80) {
+        return '💤';
+      } else if (energia >= 50) {
+        return '😴';
+      } else if (energia >= 20) {
+        return '😫';
+      } else {
+        return '😵';
+      }
+    }
+
+    // Função para trocar o animal do Tamagotchi
+    function trocarAnimal(novoAnimalEmoji) {
+      animalEmoji = novoAnimalEmoji;
+      updateTamagotchi();
+    }
+
+    // Função para mudar o nome do personagem usando uma caixa de diálogo
+    function mudarNome() {
+      const novoNome = window.prompt('Digite o nome do personagem:', nomePersonagem);
+      if (novoNome !== null && novoNome.trim() !== '') {
+        nomePersonagem = novoNome.trim();
+        updateTamagotchi();
+      }
+    }
+
+    // Função para alimentar o Tamagotchi
+    function alimentar() {
+      fome += 20;
+      if (fome > 100) {
+        fome = 100;
+      }
+      felicidade += 10;
+      if (felicidade > 100) {
+        felicidade = 100;
+      }
+      energia -= 5;
+      if (energia < 0) {
+        energia = 0;
+      }
+      updateTamagotchi();
+    }
+
+    // Função para brincar com o Tamagotchi
+    function brincar() {
+      felicidade += 20;
+      if (felicidade > 100) {
+        felicidade = 100;
+      }
+      fome -= 20; // Agora o Tamagotchi fica com fome ao brincar
+      if (fome < 0) {
+        fome = 0;
+      }
+      energia -= 10;
+      if (energia < 0) {
+        energia = 0;
+      }
+      updateTamagotchi();
+    }
+
+    // Função para descansar o Tamagotchi
+    function descansar() {
+      energia += 40;
+      if (energia > 100) {
+        energia = 100;
+      }
+      felicidade += 10;
+      if (felicidade > 100) {
+        felicidade = 100;
+      }
+      fome -= 5;
+      if (fome < 0) {
+        fome = 0;
+      }
+      updateTamagotchi();
+    }
+
+    // Reduz a fome, felicidade e energia ao longo do tempo
+    setInterval(function() {
+      fome -= 1.25; // Diminuímos pela metade a perda de fome
+      if (fome < 0) {
+        fome = 0;
+      }
+      felicidade -= 1.25; // Diminuímos pela metade a perda de felicidade
+      if (felicidade < 0) {
+        felicidade = 0;
+      }
+      energia -= 0.5; // Diminuímos pela metade a perda de energia
+      if (energia < 0) {
+        energia = 0;
+      }
+      updateTamagotchi();
+    }, 5000); // Atualiza a cada 5 segundos
+
+    // Atualizar a exibição do Tamagotchi ao carregar a página
+    updateTamagotchi();
+  </script>
+</body>
+</html>
